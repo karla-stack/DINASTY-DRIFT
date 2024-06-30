@@ -5,10 +5,9 @@ namespace Proyecto
     {
         static void Main()
         {
-            Console.WriteLine("Cambios");
-            Console.WriteLine("Pruebas");
-            Console.WriteLine("Prueba de nuevo");
-            // hola hola hola 
+            Console.WriteLine("Inserte un numero: ");
+            string? numberAsString = Console.ReadLine();
+            int number = Convert.ToInt32(numberAsString);
         }
     }
 }
