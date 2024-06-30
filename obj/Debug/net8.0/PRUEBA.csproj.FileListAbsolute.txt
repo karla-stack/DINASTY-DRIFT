@@ -1,0 +1,14 @@
+D:\Repository\PRUEBA\bin\Debug\net8.0\PRUEBA.exe
+D:\Repository\PRUEBA\bin\Debug\net8.0\PRUEBA.deps.json
+D:\Repository\PRUEBA\bin\Debug\net8.0\PRUEBA.runtimeconfig.json
+D:\Repository\PRUEBA\bin\Debug\net8.0\PRUEBA.dll
+D:\Repository\PRUEBA\bin\Debug\net8.0\PRUEBA.pdb
+D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.AssemblyInfoInputs.cache
+D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.AssemblyInfo.cs
+D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.csproj.CoreCompileInputs.cache
+D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.dll
+D:\Repository\PRUEBA\obj\Debug\net8.0\refint\PRUEBA.dll
+D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.pdb
+D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.genruntimeconfig.cache
+D:\Repository\PRUEBA\obj\Debug\net8.0\ref\PRUEBA.dll
