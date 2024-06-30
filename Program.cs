@@ -5,7 +5,8 @@ namespace Proyecto
     {
         static void Main()
         {
-            
+            Console.WriteLine("Cambios");
+            Console.WriteLine("Pruebas");
         }
     }
 }
