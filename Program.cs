@@ -1,65 +1,164 @@
 ﻿using System;
-namespace Proyecto
+using System.Text;
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main()
+        MostrarMenu();
+    }
+
+    static void MostrarMenu()
+    {
+        bool game = false; //Creamos la variable de bucle para usarla en el while del codigo
+        int opcionSeleccionada = 0; //declaro y inicio la variable para así saber que opción elige el jugador
+        string[] opciones = { "Iniciar juego", "Instrucciones", "Configuraciones", "Acerca de", "Salir del juego" };
+
+        while (!game) //Aqui se crea un bucle que mientras el jugador no le de a salir o no ejecute una de las opciones del break no va a terminar.
         {
-            bool game = false;
+            Console.Clear(); // Limpiar la consola en cada iteración del menú porque si no se va a ver raro.
 
-            while(!game)
+            // Le cambiamos los colores a la consola.
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            string imagenDelMenu = @"
+                          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡤⢤⣶⣶⣶⣶⣶⣒⣒⣀⣺⣿⣿⠿⢶⣶⣶⣶⣦⣤⣤⣤⣄⣀⣀⣀⣀⡀⠀⠀
+       ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠴⠚⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠲⠦⢤⣉⠙⣿⣿⣿⣟⢿⣿⠿⠿⠿⢿⣿  
+       ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣶⣷⡦⠞⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡇⠀⠈⠛⢿⣿⡀⠀⠀⠀⠻    
+      ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⠤⢴⣿⣉⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠙⣿⣄⡀⠀⠀    
+       ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⡶⠞⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠓⠒⠒⠢⠤⠤⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⢠⠤⠤⠤⣤⣾⠀⠙⢦⡀  
+        ⠀⠀⠀⠀⠀⠀⠀⠀⣠⠴⣮⣛⣩⢴⡿⠿⠶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠙⠒⠒⠒⠤⠤⢤⣤⣾⢿⣴⢏⣀⣀⣤⡼⠻⡆⠀⠈⢷  
+       ⠀⠀⠀⠀⠀⢀⣴⠋⠁⠀⠀⠀⠀⠙⠓⠲⠤⠬⠷⠀⠀⢀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⠤⡞⠉⠀⠀⠹⡟⠀⠀⠀⠀⠀⢱⠀⢠⣼    
+        ⠀⠀⠀⣀⡴⠋⠈⢙⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠢⠤⢄⣀⣠⠴⠛⣋⣠⠴⠒⠉⠉⢉⣲⠶⠀⣀⡠⠤⠒⠊⠉⠁⠀⠀⠀⠠⠀⡂⠐⢹⠂⠀⠀⠀⠀⣼⢰⣿⣿  
+        ⡀⣠⣼⠏⠀⠀⣰⠟⠦⢤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠓⠒⠒⠒⠋⣉⠤⠒⠋⠁⠀⠀⠀⠀⡀⠠⠀⠈⠀⠁⠀⠀⠀⢸⠀⠀⠀⠀⢀⣯⣼⣿⣿    
+        ⡟⠋⠹⢤⣠⠞⠁⠀⠀⠀⠀⠈⠉⠐⠲⠤⢄⣀⡀⠀⠀⠀⠀⣀⠤⠤⠤⠤⠤⣄⣀⣀⠀⢀⡠⠖⠋⠀⠀⠀⠄⡠⢐⠤⠀⠂⠀⣀⣀⡀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⢸⣿⣿⣿⣿  
+       ⢻⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⢒⡶⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⢦⠀⠀⠀⠈⠈⠀⠀⠀⠀⢀⣴⣿⡿⣿⡝⣆⠀⠀⠀⠴⣽⠤⠞⣠⣵⠿⣻⣿⣿⠈  
+        ⢿⣿⣿⠶⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⠇⠀⠀⠀⠀⣀⣀⣤⣤⣾⣿⢿⡆⢸⣧⢹⠀⠄⣪⣶⣿⣴⠟⢋⣥⠴⢻⣿⠏⠀ 
+        ⢸⣿⣿⡇⠀⠘⣿⣶⣦⣤⣀⡀⠀⠀⠀⠀⠀⠀⠈⠑⠲⠤⢤⣀⣀⡀⠀⠀⠀⠀⠀⠀⣀⣀⣞⣀⣠⣤⣾⣿⣿⣿⣿⣿⣿⢻⢸⣿⣾⣿⣾⣤⣾⣿⠿⢋⡡⠞⠉⠉⠉⠉⠀⠀⠀
+       ⣼⡟⣿⡇⠀⠀⢹⣄⠈⠙⠒⠯⣽⣶⢶⣤⣤⣄⣀⣀⠀⠀⠀⠀⠈⠙⠻⠿⠿⠿⠿⠿⠿⠛⠛⠛⢉⣉⣽⠶⣿⠟⣿⣿⣧⣿⣾⣿⣿⡇⢹⡿⠋⣡⠖⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀
+       ⣇⠳⣼⣧⠴⠛⠉⠉⠉⠒⣦⣤⣀⡀⠀⠀⠉⠙⢦⠀⠉⠉⢙⣷⣶⠒⠒⠒⠶⡶⠶⠶⢶⣤⠖⠚⠉⠁⠀⣰⣷⠾⣿⢿⢥⣼⣾⣿⣿⠃⣸⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+       ⠈⠳⣌⣿⢦⣄⠀⢀⣴⣿⣿⣷⣿⡯⣗⠲⠤⣀⡈⣇⠀⠀⠻⡄⠈⣷⠀⠀⠀⡿⠒⠶⠾⢿⠀⠀⠀⢠⣾⡏⠁⣸⡇⢸⡸⢠⡌⢡⣿⠴⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+       ⠀⠀⠈⠙⠳⢿⣙⠺⢽⣿⣮⣿⣿⠗⠋⠀⠀⠀⠉⡿⠀⠀⣀⣹⣿⣯⣤⣶⣚⣛⣒⣛⣓⣿⠀⠀⠀⢽⣿⣶⣶⡏⢧⣼⣷⡿⢁⣾⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+       ⠀⠀⠀⠀⠀⠀⠈⠙⠢⢬⣙⠛⠧⢤⣀⣀⠀⢀⣴⠃⠀⢀⣹⢦⣤⣉⣉⣯⣍⣹⣿⣿⣿⡃⣀⡤⠴⠛⠋⠁⠀⡇⠘⣜⣏⣠⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+       ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠓⠦⢤⣈⡉⠉⠙⠛⠛⠛⠲⠤⠤⠤⠴⣶⣶⣿⣿⢿⡿⣯⠀⠀⠀⠀⠀⢀⣠⡟⠤⠿⠟⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠒⠲⠤⢤⣄⣀⣀⣀⣤⣈⣤⣤⠤⣴⣿⣥⠤⠴⠒⠚⠋⠉                    
+";
+
+            Console.WriteLine(imagenDelMenu);
+            // Thread.Sleep(500);
+        
+
+            // Mostrar opciones del menú
+            Console.WriteLine("Menú principal");
+            MostrarOpcionesMenu(opciones, opcionSeleccionada);
+
+            // Leer la tecla presionada por el usuario la declare con ConsoleKeyInfo
+            ConsoleKeyInfo tecla = Console.ReadKey(true);
+
+            // Determinar la acción según la tecla presionada
+            switch (tecla.Key)
             {
+                case ConsoleKey.UpArrow:
+                    if (opcionSeleccionada > 0)
+                        opcionSeleccionada--;
+                    break;
+                case ConsoleKey.DownArrow:
+                    if (opcionSeleccionada < opciones.Length - 1) //Aqui yo verifico si la opción del menu no es la última opción del menu
+                        opcionSeleccionada++; //le aumento uno para que se mueva una opción para abajo
+                    break;
+                case ConsoleKey.Enter:
+                    // Ejecutar la opción seleccionada
+                    Console.Clear(); // Limpiar la consola antes de mostrar el resultado
+                    switch (opcionSeleccionada)
+                    {
+                        case 0:
+                            InicioJuego(); //En caso de que sea 0 se ejecutar el metodo que pusieron de inicio de juego
+                            break;
+                        case 1:
+                            Console.WriteLine("Mostrando instrucciones...");
+                            Thread.Sleep(2000); //espero 2 segundos para hacer un aguaje
+                            Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
+                            Console.ReadKey(true);
+                            break;
+                        case 2:
+                            Console.WriteLine("Mostrando configuraciones...");
+                            Thread.Sleep(2000); //espero 2 segundos para hacer un aguajex2
+                            Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
+                            Console.ReadKey(true);
+                            break;
+                        case 3:
+                            Console.WriteLine("Mostrando información acerca de...");
+                            Thread.Sleep(2000); //espero 2 segundos para hacer un aguajex3
+                            Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
+                            Console.ReadKey(true);
+                            break;
+                        case 4:
+                            game = true;
+                            Console.WriteLine("Gracias por jugar"); //En caso de que quiera salir
+                            break;
+                        default:
+                            Console.WriteLine("Opción no válida."); // Por si pone una loquera
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
 
-                Console.WindowHeight = 40; //UI/UX 
-                Console.WindowHeight = 50;
+    static void MostrarOpcionesMenu(string[] opciones, int opcionSeleccionada)
+    {
+        for (int i = 0; i < opciones.Length; i++)
+        {
+            if (i == opcionSeleccionada)
+            {
+                // Resaltar la opción seleccionada con colores inversos
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.White;
+            }
+            Console.WriteLine($"{i + 1}. {opciones[i]}"); // Mostrar la opción del menú
+            Console.ResetColor(); // Aqui reinicie los colores del programa para que el juego no se inicie con azul y eso del menu.
+        }
+        Console.SetCursorPosition(3, 4 + opciones.Length);
+    }
+    static void InicioJuego()
+    {
+        Console.Clear(); // Limpiar la consola antes de iniciar el juego
+        Console.WriteLine("Iniciando el juego");
 
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.DarkBlue;
+        int filas = 20;
+        int columnas = 10;
 
+        char[,] pista = new char[filas, columnas];
 
-                
-                Console.WriteLine("Menú principal");  //Opciones del menú
-                Console.WriteLine("1. Iniciar juego");
-                Console.WriteLine("2. Instrucciones");
-                Console.WriteLine("3. Configuraciones");
-                Console.WriteLine("4. Acerca de ");
-                Console.WriteLine("5. Salir del juego");
-
-                Console.WriteLine("Seleccione una opcion ");
-                string? opcionAsString = Console.ReadLine(); // Pidiendo datos 
-
-                int opcion;
-                if(int.TryParse(opcionAsString, out opcion))//Convirtiendo datos
+        // Llenar la pista 
+        for (int i = 0; i < filas; i++)
+        {
+            for (int c = 0; c < columnas; c++)
+            {
+                if (i == 0 || i == filas - 1 || c == 0 || c == columnas - 1)
                 {
-                  switch(opcion)  // en los cases van los métodos 
-                  {
-                    case 1:
-                    break;
-
-                    case 2:
-                    break;
-
-                    case 3:
-                    break;
-
-                    case 4:
-                    break;
-
-                    case 5:
-                    game = true;
-                    Console.WriteLine("Gracias por jugar"); // El bucle se rompe y termina el programa
-                    break; 
-
-                   }
+                    pista[i, c] = '|'; // Borde de la pista
                 }
                 else
                 {
-                    Console.WriteLine("Error insertar un numero de menú válido"); //En caso de que el usuario ingrese un valor inválido
+                    pista[i, c] = ' '; // Camino de la pista
                 }
-
-
             }
-            
         }
+
+        // Mostrar la pista en la consola
+        for (int i = 0; i < filas; i++)
+        {
+            for (int c = 0; c < columnas; c++)
+            {
+                Console.Write(pista[i, c]);
+            }
+            Console.WriteLine(); // Nueva línea al final de cada fila
+        }
+
+        Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
+        Console.ReadKey();
     }
 }
