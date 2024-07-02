@@ -12,3 +12,4 @@ D:\Repository\PRUEBA\obj\Debug\net8.0\refint\PRUEBA.dll
 D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.pdb
 D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.genruntimeconfig.cache
 D:\Repository\PRUEBA\obj\Debug\net8.0\ref\PRUEBA.dll
+D:\Repository\PRUEBA\obj\Debug\net8.0\PRUEBA.sourcelink.json
