@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 
 class Program
 {
@@ -74,7 +75,7 @@ class Program
                     switch (opcionSeleccionada)
                     {
                         case 0:
-                            InicioJuego(); //En caso de que sea 0 se ejecutar el metodo que pusieron de inicio de juego
+                            Juego.InicioJuego(); //En caso de que sea 0 se ejecutar el metodo que pusieron de inicio de juego
                             break;
                         case 1:
                             Console.WriteLine("Mostrando instrucciones...");
@@ -122,17 +123,30 @@ class Program
         }
         Console.SetCursorPosition(3, 4 + opciones.Length);
     }
-    static void InicioJuego()
+}
+
+class Juego
+{
+    static int filas = 40;
+    static int columnas = 10;
+    static char[,] pista = new char[filas, columnas];
+    static int posicionCarroFila = filas - 2; 
+    static int posicionCarroColumna = columnas / 2; 
+
+   public static void InicioJuego()
     {
-        Console.Clear(); // Limpiar la consola antes de iniciar el juego
-        Console.WriteLine("Iniciando el juego");
+        Pista();
+        //Movimiento();
+        Console.WriteLine("Presione 'Q' o 'Esc'  para volver al menú principal...");
+        while (Console.ReadKey(true).Key != ConsoleKey.Q)
+        {
+            // Esperar hasta que se presione 'Q'
+        }
+    }
 
-        int filas = 20;
-        int columnas = 10;
-
-        char[,] pista = new char[filas, columnas];
-
-        // Llenar la pista 
+    static void Pista()
+    {
+        // Llenar la pista
         for (int i = 0; i < filas; i++)
         {
             for (int c = 0; c < columnas; c++)
@@ -145,20 +159,54 @@ class Program
                 {
                     pista[i, c] = ' '; // Camino de la pista
                 }
+
             }
         }
+        MostrarPista();
 
-        // Mostrar la pista en la consola
+    }
+
+    static void MostrarPista()
+    {
+        Console.Clear();
+
         for (int i = 0; i < filas; i++)
         {
             for (int c = 0; c < columnas; c++)
             {
-                Console.Write(pista[i, c]);
+            Console.Write(pista[i, c]);
             }
-            Console.WriteLine(); // Nueva línea al final de cada fila
+            Console.WriteLine();
         }
-
-        Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
-        Console.ReadKey();
     }
-}
+
+    /*static void Movimiento() //CHAT GPT PRUEBA
+    {
+        while (true)
+        {
+            ConsoleKeyInfo tecla = Console.ReadKey(true);
+            switch (tecla.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    if (posicionCarroColumna > 1)
+                    {
+                        pista[posicionCarroFila, posicionCarroColumna] = ' ';
+                        posicionCarroColumna--;
+                        pista[posicionCarroFila, posicionCarroColumna] = 'A';
+                    }
+                    break;
+                case ConsoleKey.RightArrow:
+                    if (posicionCarroColumna < columnas - 2)
+                    {
+                        pista[posicionCarroFila, posicionCarroColumna] = ' ';
+                        posicionCarroColumna++;
+                        pista[posicionCarroFila, posicionCarroColumna] = 'A';
+                    }
+                    break;
+                case ConsoleKey.Escape:
+                    return; // Salir del juego
+            }
+            MostrarPista();
+        }
+    } */
+}    
