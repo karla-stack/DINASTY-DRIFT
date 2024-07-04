@@ -143,7 +143,26 @@ class Program
 ╚═╝░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
         
         ";
-        Console.WriteLine(nombres);
+        ConsoleColor[] colors = new ConsoleColor[]
+        {
+            ConsoleColor.Red,
+            ConsoleColor.Green,
+            ConsoleColor.Blue,
+            ConsoleColor.Yellow,
+            ConsoleColor.Gray,
+            ConsoleColor.DarkRed,
+            ConsoleColor.DarkBlue
+        };
+
+        int intervalo = 400;
+        
+        foreach(var color in colors)
+        {
+            Console.Clear();
+            Console.ForegroundColor = color;
+            Console.WriteLine(nombres);
+            Thread.Sleep(intervalo);
+        }
     }
 
     static void MostrarOpcionesMenu(string[] opciones, int opcionSeleccionada)
