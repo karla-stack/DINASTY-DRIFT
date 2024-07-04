@@ -14,7 +14,7 @@ class Program
     {
         bool game = false; //Creamos la variable de bucle para usarla en el while del codigo
         int opcionSeleccionada = 0; //declaro y inicio la variable para así saber que opción elige el jugador
-        string[] opciones = { "Iniciar juego", "Instrucciones", "Configuraciones", "Acerca de", "Salir del juego" };
+        string[] opciones = { "Iniciar juego", "Instrucciones","Acerca de", "Salir del juego" };
 
         while (!game) //Aqui se crea un bucle que mientras el jugador no le de a salir o no ejecute una de las opciones del break no va a terminar.
         {
@@ -46,6 +46,13 @@ class Program
        ⠀⠀⠀⠀⠀⠀⠈⠙⠢⢬⣙⠛⠧⢤⣀⣀⠀⢀⣴⠃⠀⢀⣹⢦⣤⣉⣉⣯⣍⣹⣿⣿⣿⡃⣀⡤⠴⠛⠋⠁⠀⡇⠘⣜⣏⣠⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠓⠦⢤⣈⡉⠉⠙⠛⠛⠛⠲⠤⠤⠤⠴⣶⣶⣿⣿⢿⡿⣯⠀⠀⠀⠀⠀⢀⣠⡟⠤⠿⠟⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
         ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠒⠲⠤⢤⣄⣀⣀⣀⣤⣈⣤⣤⠤⣴⣿⣥⠤⠴⠒⠚⠋⠉                    
+
+
+█████████████████████████████████████████████████████████████████████████
+█▄─▄▄▀█▄─▄█▄─▀█▄─▄██▀▄─██─▄▄▄▄█─▄─▄─█▄─█─▄███▄─▄▄▀█▄─▄▄▀█▄─▄█▄─▄▄─█─▄─▄─█
+██─██─██─███─█▄▀─███─▀─██▄▄▄▄─███─████▄─▄█████─██─██─▄─▄██─███─▄█████─███
+▀▄▄▄▄▀▀▄▄▄▀▄▄▄▀▀▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▀▄▄▄▀▀▀▄▄▄▀▀▀▀▄▄▄▄▀▀▄▄▀▄▄▀▄▄▄▀▄▄▄▀▀▀▀▄▄▄▀▀
+
 ";
 
             Console.WriteLine(imagenDelMenu);
@@ -76,7 +83,7 @@ class Program
                     switch (opcionSeleccionada)
                     {
                         case 0:
-                            ProjectoJuegoCarro.JuegoDeCarro.IniciarJuego();//En caso de que sea 0 se ejecutar el metodo que pusieron de inicio de juego
+                            ProjectoJuegoCarro.JuegoDeCarro.InicioJuego();//En caso de que sea 0 se ejecutar el metodo que pusieron de inicio de juego
                             break;
                         case 1:
                             Console.WriteLine("Mostrando instrucciones...");
@@ -84,18 +91,12 @@ class Program
                             Instrucciones();
                             break;
                         case 2:
-                            Console.WriteLine("Mostrando configuraciones...");
-                            Thread.Sleep(2000); //espero 2 segundos para hacer un aguajex2
+                            Console.WriteLine("Mostrando información acerca de...");
+                            AcercaDe();
                             Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
                             Console.ReadKey(true);
                             break;
                         case 3:
-                            Console.WriteLine("Mostrando información acerca de...");
-                            Thread.Sleep(2000); //espero 2 segundos para hacer un aguajex3
-                            Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
-                            Console.ReadKey(true);
-                            break;
-                        case 4:
                             game = true;
                             Console.WriteLine("Gracias por jugar"); //En caso de que quiera salir
                             break;
@@ -106,6 +107,43 @@ class Program
                     break;
             }
         }
+    }
+
+    static void AcercaDe()
+    {
+        Thread.Sleep(2000);
+        string nombres = @"
+        
+███████╗███╗░░██╗███╗░░░███╗░█████╗░███╗░░██╗██╗░░░██╗███████╗██╗░░░░░
+██╔════╝████╗░██║████╗░████║██╔══██╗████╗░██║██║░░░██║██╔════╝██║░░░░░
+█████╗░░██╔██╗██║██╔████╔██║███████║██╔██╗██║██║░░░██║█████╗░░██║░░░░░
+██╔══╝░░██║╚████║██║╚██╔╝██║██╔══██║██║╚████║██║░░░██║██╔══╝░░██║░░░░░
+███████╗██║░╚███║██║░╚═╝░██║██║░░██║██║░╚███║╚██████╔╝███████╗███████╗
+╚══════╝╚═╝░░╚══╝╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝░╚═════╝░╚══════╝╚══════╝
+
+██╗░░██╗░█████╗░██████╗░██╗░░░░░░█████╗░
+██║░██╔╝██╔══██╗██╔══██╗██║░░░░░██╔══██╗
+█████═╝░███████║██████╔╝██║░░░░░███████║
+██╔═██╗░██╔══██║██╔══██╗██║░░░░░██╔══██║
+██║░╚██╗██║░░██║██║░░██║███████╗██║░░██║
+╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝
+
+██╗░██████╗░█████╗░░█████╗░░█████╗░
+██║██╔════╝██╔══██╗██╔══██╗██╔══██╗
+██║╚█████╗░███████║███████║██║░░╚═╝
+██║░╚═══██╗██╔══██║██╔══██║██║░░██╗
+██║██████╔╝██║░░██║██║░░██║╚█████╔╝
+╚═╝╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░
+
+██╗░░██╗███████╗░█████╗░████████╗░█████╗░██████╗░
+██║░░██║██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗
+███████║█████╗░░██║░░╚═╝░░░██║░░░██║░░██║██████╔╝
+██╔══██║██╔══╝░░██║░░██╗░░░██║░░░██║░░██║██╔══██╗
+██║░░██║███████╗╚█████╔╝░░░██║░░░╚█████╔╝██║░░██║
+╚═╝░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
+        
+        ";
+        Console.WriteLine(nombres);
     }
 
     static void MostrarOpcionesMenu(string[] opciones, int opcionSeleccionada)
@@ -148,21 +186,15 @@ class Program
             ConsoleColor.DarkBlue
         };
 
-        int tiempo = 10;
         int intervalo = 400;
-        int formulaRara = (tiempo * 1000) / intervalo;
-        int i = 0; 
-
-        do
-        {
+        
             foreach(var color in colors)
             {
                 Console.Clear();
-                Console.WriteLine(imagenInstrucciones);
                 Console.ForegroundColor = color;
+                Console.WriteLine(imagenInstrucciones);
                 Thread.Sleep(intervalo);
             }
-
             Console.WriteLine("¡Bienvenido al juego de carreras en la consola!");
             Console.WriteLine("================================================");
             Console.WriteLine();
@@ -174,119 +206,175 @@ class Program
             Console.WriteLine("   - Izquierda (←) para mover el carro hacia la izquierda.");
             Console.WriteLine("   - Derecha (→) para mover el carro hacia la derecha.");
             Console.WriteLine();
-            Console.WriteLine("¡Presta atención y reacciona rápido! La velocidad aumentará gradualmente,");
-            Console.WriteLine("y los obstáculos se volverán más frecuentes a medida que avanzas.");
+            Console.WriteLine("¡Presta atención y reacciona rápido! dependiendo de la velocidad que escojas,");
+            Console.WriteLine("los obstáculos se volverán más frecuentes a medida que avanzas.");
             Console.WriteLine();
             Console.WriteLine("¡Buena suerte y que empiece la carrera!");
             Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
             Console.ReadKey(true);
-        } while (i < formulaRara);
-
-
     }
 }
 
 
-namespace ProjectoJuegoCarro //Nuevo organizador metodo para la iniciacion del juego
+namespace ProjectoJuegoCarro
 {
-    public class JuegoDeCarro //La clase creada proporcional al juego.
+    public class JuegoDeCarro
     {
-        static int AnchoDeCarretera = 3; //Difinimos un metodo para el ancho.
-        static bool JuegoCorriendo = true;      //Otro metodo que vamos a usar como algo primoldial.
-        static int Velocidad = 0;       //Este sera un poco mas variado.
-        static Random Aleatorio = new Random(); //Un metodo para crear una nueva instancia no iniciada
-        static bool[,] Camino = new bool[20, 3]; //Con este metodo creamos una matriz Bidimensional no iniciada.
+        static int AnchoDeCarretera = 3;
+        static bool JuegoCorriendo = true;
+        static int Velocidad = 0;
+        static Random Aleatorio = new Random();
+        static bool[,] Camino = new bool[20, 3];
+        static int PosicionDelCarro = 1;
 
-        static int PosicionDelCarro = 1; // 0: Izquierda, 1: Centro, 2: Derecha. Recondando como recorre la matrix 0=1, 1=2, etc,
-
-
-        public static void IniciarJuego() //No usamos Main porque solo podemos tener uno (creo).
+        public static void InicioJuego()
         {
-            Console.CursorVisible = false; //Se quita el cursor para que no interactue.
-            SeleccionarDificultad();    //Llamamos esta primera opcion para seleccionar la dificultad
+            bool salir = false;
 
-            Thread inputThread = new Thread(Entrada); //Se crea un hilo para ejecutar la entrada.
-            inputThread.Start(); //Iniciamos el hilo
-
-            while (JuegoCorriendo) //Este es el bucle principal del juego, Muentras el juego sea true sigue corriendo..
+            do
             {
-                GeneradorDeObstaculos(); //Llamamos al generador de obstaculos
-                PistaYObstaculos(); //Llamamos la creacion de la pista y los obstaculos.
-                Colision();                 //Si coliciona salimos del bloque.
-                Thread.Sleep(Velocidad);        //Esto pausa la ejecucion del hilo para que el juego vaya mas lento.
-            }
+                Console.CursorVisible = false;
+                SeleccionarDificultad();
 
-            inputThread.Join(); //Esto detiene la ejecucion del hilo pero para que no finalice el programa.
-        }    
+                if (Velocidad > 0) // Solo iniciar el juego si se seleccionó una dificultad válida
+                {
+                    JuegoCorriendo = true;
+                    Thread inputThread = new Thread(Entrada);
+                    inputThread.Start();
 
-        static void PistaYObstaculos() //Esto es para generar la pista, obstaculo y el carro.
+                    while (JuegoCorriendo)
+                    {
+                        GeneradorDeObstaculos();
+                        PistaYObstaculos();
+                        Colision();
+                        Thread.Sleep(Velocidad);
+                    }
+
+                    inputThread.Join();
+
+                    Console.Clear();
+                    Console.WriteLine("¡Colisión! Juego terminado.");
+                    Console.WriteLine("Presiona cualquier tecla para volver al menú.");
+                    Console.ReadKey(true); // Espera a que el usuario presione una tecla
+
+                    Console.Clear();
+                    Console.WriteLine("¿Deseas jugar de nuevo?");
+                    Console.WriteLine("1. Sí");
+                    Console.WriteLine("2. No, salir");
+
+                    char replayChoice = Console.ReadKey(true).KeyChar;
+                    if (replayChoice != '1')
+                    {
+                        salir = true;
+                    }
+                }
+                else
+                {
+                    salir = true; // Si no se seleccionó una dificultad, salir del programa
+                }
+
+            } while (!salir);
+        }
+
+        static void PistaYObstaculos()
         {
             Console.Clear();
-            
-            //Doble bucle para recorrer el camino y poner lo que definiremos como pista, etc.
-            for (int i = 0; i < Camino.GetLength(0); i++) //Recorre las columnas
-            {               
-                for (int j = 0; j < AnchoDeCarretera; j++)//Recorre las filas
-                {
-                    if (i == Camino.GetLength(0) - 1 && j == PosicionDelCarro) 
-                        Console.Write('O'); //Carro
-                    else if (Camino[i, j])
-                        Console.Write('='); //Obstaculo
-                    else
-                        Console.Write('|'); //Pista
-                }
-                Console.WriteLine(); //Aqui imprime todo
-            }
-        }
-        static void MostrarOpcionesMenu(string[] opciones, int opcionSeleccionada)
-        {
-            for (int i = 0; i < opciones.Length; i++)
+            for (int i = 0; i < Camino.GetLength(0); i++)
             {
-                if (i == opcionSeleccionada)
+                for (int j = 0; j < AnchoDeCarretera; j++)
                 {
-                    // Resaltar la opción seleccionada con colores inversos
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.White;
+                    if (i == Camino.GetLength(0) - 1 && j == PosicionDelCarro)
+                        Console.Write('O'); // Carro
+                    else if (Camino[i, j])
+                        Console.Write('=');
+                    else
+                        Console.Write('|');
                 }
-                Console.WriteLine($"{i + 1}. {opciones[i]}"); // Mostrar la opción del menú
-                Console.ResetColor(); // Aqui reinicie los colores del programa para que el juego no se inicie con azul y eso del menu.
+                Console.WriteLine();
             }
-            Console.SetCursorPosition(3, 4 + opciones.Length);
         }
 
-        
         static void SeleccionarDificultad()
         {
-            Console.Clear();
-            Console.WriteLine("Seleccione la dificultad:");
-            Console.WriteLine("1. Fácil");
-            Console.WriteLine("2. Normal");
-            Console.WriteLine("3. Difícil");
-            
-            Console.WriteLine("\nPresione Esc para volver al menu."); 
+            bool selectingDifficulty = true;
 
-            
-            char choice = Console.ReadKey(true).KeyChar;
-
-            switch (choice)
+            do
             {
-                case '1':
-                    Velocidad += 600; // Aumentar el tiempo de espera para facilitar el juego.
-                    break;
-                case '2':
-                    Velocidad += 300; // Menos aumento para dificultad normal
-                    break;
-                case '3':
-                    Velocidad += 100; // Nada de tiempo de espera aumento para dificultad difícil.
-                    break;
+                Console.Clear();
+                Console.WriteLine("Seleccione la dificultad:");
+                Console.WriteLine("1. Fácil");
+                Console.WriteLine("2. Normal");
+                Console.WriteLine("3. Difícil");
+                Console.WriteLine("Presione Esc para salir.");
 
-                default:
-                    Console.WriteLine("1");
-                    break;
-            }
+                char choice = Console.ReadKey(true).KeyChar;
+
+                switch (choice)
+                {
+                    case '1':
+                        Velocidad = 600; // Aumentar el tiempo de espera para facilitar el juego.
+                        Console.WriteLine(@"
+                      ______                
+                      |  ____|               
+                      | |__   __ _ ___ _   _ 
+                      |  __| / _` / __| | | |
+                      | |___| (_| \__ \ |_| |
+                      |______\__,_|___/\__, |
+                                        __/ |
+                                       |___/ 
+                        ");
+                        selectingDifficulty = false;
+                        break;
+                    case '2':
+                        Velocidad = 400; // Menos aumento para dificultad normal.
+                        Console.WriteLine(@"
+
+                     _____   __                              ______     
+                     ___  | / /___________________ _________ ___  /     
+                     __   |/ /_  __ \_  ___/_  __ `__ \  __ `/_  /      
+                     _  /|  / / /_/ /  /   _  / / / / / /_/ /_  /       
+                     /_/ |_/  \____//_/    /_/ /_/ /_/\__,_/ /_/        
+                        
+                        ");
+                        selectingDifficulty = false;
+                        break;
+                    case '3':
+                        Velocidad = 300; // Nada de tiempo de espera aumento para dificultad difícil.
+                        Console.WriteLine(@"
+                        
+                           ██░ ██  ▄▄▄       ██▀███  ▓█████▄  ▄████▄   ▒█████   ██▀███  ▓█████     ▐██▌
+                          ▓██░ ██▒▒████▄    ▓██ ▒ ██▒▒██▀ ██▌▒██▀ ▀█  ▒██▒  ██▒▓██ ▒ ██▒▓█   ▀     ▐██▌
+                          ▒██▀▀██░▒██  ▀█▄  ▓██ ░▄█ ▒░██   █▌▒▓█    ▄ ▒██░  ██▒▓██ ░▄█ ▒▒███       ▐██▌
+                          ░▓█ ░██ ░██▄▄▄▄██ ▒██▀▀█▄  ░▓█▄   ▌▒▓▓▄ ▄██▒▒██   ██░▒██▀▀█▄  ▒▓█  ▄     ▓██▒
+                          ░▓█▒░██▓ ▓█   ▓██▒░██▓ ▒██▒░▒████▓ ▒ ▓███▀ ░░ ████▓▒░░██▓ ▒██▒░▒████▒    ▒▄▄ 
+                           ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒▓ ░▒▓░ ▒▒▓  ▒ ░ ░▒ ▒  ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░░░ ▒░ ░    ░▀▀▒
+                          ▒ ░▒░ ░  ▒   ▒▒ ░  ░▒ ░ ▒░ ░ ▒  ▒   ░  ▒     ░ ▒ ▒░   ░▒ ░ ▒░ ░ ░  ░    ░  ░
+                          ░  ░░ ░  ░   ▒     ░░   ░  ░ ░  ░ ░        ░ ░ ░ ▒    ░░   ░    ░          ░
+                          ░  ░  ░      ░  ░   ░        ░    ░ ░          ░ ░     ░        ░  ░    ░   
+                          ░      ░                                         
+                        
+                        ");
+                        selectingDifficulty = false;
+                        break;
+                    case (char)ConsoleKey.Escape:
+                        Console.WriteLine("Saliendo del juego...");
+                        Thread.Sleep(1000); // Pequeña pausa antes de salir
+                        Environment.Exit(0); // Salir del programa completamente
+                        break;
+                    default:
+                        Console.WriteLine("Selección inválida. Inténtalo de nuevo.");
+                        break;
+                }
+
+                if (!selectingDifficulty)
+                {
+                    Console.WriteLine("\nDificultad seleccionada. Presione cualquier tecla para comenzar el juego.");
+                    Console.ReadKey(true);
+                }
+            } while (selectingDifficulty);
         }
 
-        static void GeneradorDeObstaculos()//Genera obstaculos 
+        static void GeneradorDeObstaculos()
         {
             for (int i = Camino.GetLength(0) - 1; i > 0; i--)
             {
@@ -298,44 +386,47 @@ namespace ProjectoJuegoCarro //Nuevo organizador metodo para la iniciacion del j
 
             for (int j = 0; j < AnchoDeCarretera; j++)
             {
-                Camino[0, j] = Aleatorio.Next(0, 10) < 2; // 20% de probabilidad de bache (se puede modificar)
+                if(Aleatorio.Next(0,10)<2)
+                {
+                    if(!Camino[0, j])
+                    {
+                        Camino[0, j] = true;
+                    }
+                }
+                else
+                {
+                    Camino[0, j] = false;
+                }
             }
         }
 
-
-
-        static void Colision()//Esto es para cuando choque se vuelva falso y salga de todos los bucles e imprima.
+        static void Colision()
         {
             if (Camino[Camino.GetLength(0) - 1, PosicionDelCarro])
             {
                 JuegoCorriendo = false;
-                Console.Clear();
-                Console.WriteLine("¡Colisión! Juego terminado.");
-                Console.WriteLine("Presiona cualquier tecla para volver al menu.");
             }
         }
 
-        static void Entrada() //Todo esto es para hacer las movidas del "carro"
+        static void Entrada()
         {
             while (JuegoCorriendo)
             {
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                if (keyInfo.Key == ConsoleKey.LeftArrow && PosicionDelCarro > 0)
-                    {
-                        PosicionDelCarro--;
-                    }
-            
-                else if (keyInfo.Key == ConsoleKey.RightArrow && PosicionDelCarro < AnchoDeCarretera - 1)
-                    {
-                        PosicionDelCarro++;
-                    }
-            
-                else if (keyInfo.Key == ConsoleKey.Escape)
-                        {
-                            JuegoCorriendo = false;
-                        }
-            
+                var key = Console.ReadKey(true).Key;
+
+                switch (key)
+                {
+                    case ConsoleKey.LeftArrow:
+                        if (PosicionDelCarro > 0) PosicionDelCarro--;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if (PosicionDelCarro < AnchoDeCarretera - 1) PosicionDelCarro++;
+                        break;
+                    case ConsoleKey.Escape:
+                        JuegoCorriendo = false;
+                        break;
+                }
             }
         }
     }
-}   
+}
