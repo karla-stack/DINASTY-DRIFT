@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repository\\PRUEBA\\PRUEBA.csproj",
+      "projectUniqueName": "D:\\Repository\\GAME\\PRUEBA.csproj",
       "projectName": "PRUEBA",
-      "projectPath": "D:\\Repository\\PRUEBA\\PRUEBA.csproj",
+      "projectPath": "D:\\Repository\\GAME\\PRUEBA.csproj",
       "packagesPath": "C:\\Users\\karla\\.nuget\\packages\\",
-      "outputPath": "D:\\Repository\\PRUEBA\\obj\\",
+      "outputPath": "D:\\Repository\\GAME\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\karla\\AppData\\Roaming\\NuGet\\NuGet.Config",

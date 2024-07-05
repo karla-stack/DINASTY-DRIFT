@@ -253,7 +253,7 @@ class Menu
 
 namespace ProjectoJuegoCarro
 {
-    public class JuegoDeCarro //contenedor lógico con las variables
+    public class JuegoDeCarro //contenedor lógico 
     {
 
         //todas las variables, matriz, elementos importantes que componen el programa 
@@ -401,7 +401,7 @@ namespace ProjectoJuegoCarro
                 switch (choice)
                 {
                     case '1':
-                        Velocidad = 800; // Aumentar el tiempo de espera para facilitar el juego.
+                        Velocidad = 900; // Aumentar el tiempo de espera para facilitar el juego.
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine(@"
                       ______                
@@ -417,7 +417,7 @@ namespace ProjectoJuegoCarro
                         Console.ResetColor();
                         break;
                     case '2':
-                        Velocidad = 700; // Menos aumento para dificultad normal.
+                        Velocidad = 800; // Menos aumento para dificultad normal.
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine(@"
 
@@ -432,7 +432,7 @@ namespace ProjectoJuegoCarro
                         Console.ResetColor();
                         break;
                     case '3':
-                        Velocidad = 400; // Nada de tiempo de espera aumento para dificultad difícil.
+                        Velocidad = 600; // Nada de tiempo de espera aumento para dificultad difícil.
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(@"
                         
