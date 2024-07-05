@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading;
 
-class Program
+class Menu
 {
     static void Main(string[] args)
     {
@@ -98,7 +98,18 @@ class Program
                             break;
                         case 3:
                             game = true;
-                            Console.WriteLine("Gracias por jugar"); //En caso de que quiera salir
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine(@"
+
+█████▀█████████████████████████████████████████████████████████████████████████▀█████████████
+█─▄▄▄▄█▄─▄▄▀██▀▄─██─▄▄▄─█▄─▄██▀▄─██─▄▄▄▄███▄─▄▄─█─▄▄─█▄─▄▄▀█████▄─▄█▄─██─▄█─▄▄▄▄██▀▄─██▄─▄▄▀█
+█─██▄─██─▄─▄██─▀─██─███▀██─███─▀─██▄▄▄▄─████─▄▄▄█─██─██─▄─▄███─▄█─███─██─██─██▄─██─▀─███─▄─▄█
+▀▄▄▄▄▄▀▄▄▀▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▄▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▀▀▄▄▄▀▀▀▄▄▄▄▀▄▄▀▄▄▀▀▀▄▄▄▀▀▀▀▄▄▄▄▀▀▄▄▄▄▄▀▄▄▀▄▄▀▄▄▀▄▄▀
+███████████████████████████████████████████████████████████████████████████
+█▄─▄▄▀█▄─▄█▄─▀█▄─▄██▀▄─██─▄▄▄▄█─▄─▄─█▄─█─▄███▄─▄▄▀█▄─▄▄▀█▄─▄█▄─▄▄─█─▄─▄─█░█
+██─██─██─███─█▄▀─███─▀─██▄▄▄▄─███─████▄─▄█████─██─██─▄─▄██─███─▄█████─███▄█
+▀▄▄▄▄▀▀▄▄▄▀▄▄▄▀▀▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▀▄▄▄▀▀▀▄▄▄▀▀▀▀▄▄▄▄▀▀▄▄▀▄▄▀▄▄▄▀▄▄▄▀▀▀▀▄▄▄▀▀▄▀");//En caso de que quiera salir
+                            Console.ResetColor(); 
                             break;
                         default:
                             Console.WriteLine("Opción no válida."); // Por si pone una loquera
@@ -185,7 +196,7 @@ class Program
     {
         string imagenInstrucciones = @"
         
-            _____ _____ _____ _____       __ _____ _____ _____ _____ 
+             _____ _____ _____ _____       __ _____ _____ _____ _____ 
             |     |     |     |     |   __|  |  |  |   __|  _  | __  |
             |   --|  |  | | | |  |  |  |  |  |  |  |  |  |     |    -|
             |_____|_____|_|_|_|_____|  |_____|_____|_____|__|__|__|__|
@@ -239,12 +250,16 @@ namespace ProjectoJuegoCarro
 {
     public class JuegoDeCarro
     {
-        static int AnchoDeCarretera = 3;
+        static int AnchoDeCarretera = 7;
         static bool JuegoCorriendo = true;
         static int Velocidad = 0;
         static Random Aleatorio = new Random();
-        static bool[,] Camino = new bool[20, 3];
-        static int PosicionDelCarro = 1;
+        static bool[,] Camino = new bool[15, 7];
+        static int PosicionDelCarro = 5;
+
+        static int puntaje = 0;
+
+        static string nombre = "";
 
         public static void InicioJuego()
         {
@@ -254,10 +269,14 @@ namespace ProjectoJuegoCarro
             {
                 Console.CursorVisible = false;
                 SeleccionarDificultad();
+                nombre = ObtenerNombreJugador();
 
                 if (Velocidad > 0) // Solo iniciar el juego si se seleccionó una dificultad válida
                 {
                     JuegoCorriendo = true;
+                    puntaje = 0;
+                    DateTime startTime = DateTime.Now;
+
                     Thread inputThread = new Thread(Entrada);
                     inputThread.Start();
 
@@ -266,20 +285,52 @@ namespace ProjectoJuegoCarro
                         GeneradorDeObstaculos();
                         PistaYObstaculos();
                         Colision();
+
+                        //Incrementa el score 
+                        TimeSpan elapsedTime = DateTime.Now - startTime;
+                        puntaje = (int)elapsedTime.TotalSeconds;
+
                         Thread.Sleep(Velocidad);
                     }
 
                     inputThread.Join();
 
-                    Console.Clear();
-                    Console.WriteLine("¡Colisión! Juego terminado.");
-                    Console.WriteLine("Presiona cualquier tecla para volver al menú.");
-                    Console.ReadKey(true); // Espera a que el usuario presione una tecla
 
                     Console.Clear();
-                    Console.WriteLine("¿Deseas jugar de nuevo?");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine(@"
+██╗░░██╗░█████╗░░██████╗
+██║░░██║██╔══██╗██╔════╝
+███████║███████║╚█████╗░
+██╔══██║██╔══██║░╚═══██╗
+██║░░██║██║░░██║██████╔╝
+╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░
+
+░█████╗░░█████╗░██╗░░░░░██╗░██████╗██╗░█████╗░███╗░░██╗░█████╗░██████╗░░█████╗░██╗
+██╔══██╗██╔══██╗██║░░░░░██║██╔════╝██║██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔══██╗██║
+██║░░╚═╝██║░░██║██║░░░░░██║╚█████╗░██║██║░░██║██╔██╗██║███████║██║░░██║██║░░██║██║
+██║░░██╗██║░░██║██║░░░░░██║░╚═══██╗██║██║░░██║██║╚████║██╔══██║██║░░██║██║░░██║╚═╝
+╚█████╔╝╚█████╔╝███████╗██║██████╔╝██║╚█████╔╝██║░╚███║██║░░██║██████╔╝╚█████╔╝██╗
+░╚════╝░░╚════╝░╚══════╝╚═╝╚═════╝░╚═╝░╚════╝░╚═╝░░╚══╝╚═╝░░╚═╝╚═════╝░░╚════╝░╚═╝");
+                    Console.WriteLine("Juego terminado.");
+                    Console.WriteLine($"Nombre del jugador: {nombre}");
+                    Console.WriteLine($"Puntaje del jugador: {puntaje}");
+                    Console.WriteLine("Presiona cualquier tecla para volver al menú.");
+                    Console.ReadKey(true); // Espera a que el usuario presione una tecla
+                    Console.ResetColor();
+
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.WriteLine(@"
+
+
+████████████████████████████████████████████████████████
+█─▄▄▄─█─▄▄─█▄─▀█▄─▄█─▄─▄─█▄─▄█▄─▀█▄─▄█▄─██─▄█▄─▄▄─█▀▄▄▀█
+█─███▀█─██─██─█▄▀─████─████─███─█▄▀─███─██─███─▄█▀███▄██
+▀▄▄▄▄▄▀▄▄▄▄▀▄▄▄▀▀▄▄▀▀▄▄▄▀▀▄▄▄▀▄▄▄▀▀▄▄▀▀▄▄▄▄▀▀▄▄▄▄▄▀▀▀▄▀▀");
                     Console.WriteLine("1. Sí");
                     Console.WriteLine("2. No, salir");
+                    Console.ResetColor();
 
                     char replayChoice = Console.ReadKey(true).KeyChar;
                     if (replayChoice != '1')
@@ -293,6 +344,13 @@ namespace ProjectoJuegoCarro
                 }
 
             } while (!salir);
+        }
+
+        static string ObtenerNombreJugador()
+        {
+            Console.WriteLine("Insertar tu nombre de jugador: ");
+            string? nombre = Console.ReadLine();
+            return nombre ?? "Jugador"; //Si es empty or null return "Jugador"
         }
 
         static void PistaYObstaculos()
@@ -332,6 +390,7 @@ namespace ProjectoJuegoCarro
                 {
                     case '1':
                         Velocidad = 600; // Aumentar el tiempo de espera para facilitar el juego.
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine(@"
                       ______                
                       |  ____|               
@@ -343,9 +402,11 @@ namespace ProjectoJuegoCarro
                                        |___/ 
                         ");
                         selectingDifficulty = false;
+                        Console.ResetColor();
                         break;
                     case '2':
-                        Velocidad = 400; // Menos aumento para dificultad normal.
+                        Velocidad = 500; // Menos aumento para dificultad normal.
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine(@"
 
                      _____   __                              ______     
@@ -356,9 +417,11 @@ namespace ProjectoJuegoCarro
                         
                         ");
                         selectingDifficulty = false;
+                        Console.ResetColor();
                         break;
                     case '3':
-                        Velocidad = 300; // Nada de tiempo de espera aumento para dificultad difícil.
+                        Velocidad = 400; // Nada de tiempo de espera aumento para dificultad difícil.
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(@"
                         
                            ██░ ██  ▄▄▄       ██▀███  ▓█████▄  ▄████▄   ▒█████   ██▀███  ▓█████     ▐██▌
@@ -374,6 +437,7 @@ namespace ProjectoJuegoCarro
                         
                         ");
                         selectingDifficulty = false;
+                        Console.ResetColor();
                         break;
                     case (char)ConsoleKey.Escape:
                         Console.WriteLine("Saliendo del juego...");
@@ -405,7 +469,7 @@ namespace ProjectoJuegoCarro
 
             for (int j = 0; j < AnchoDeCarretera; j++)
             {
-                if(Aleatorio.Next(0,10)<2)
+                if(Aleatorio.Next(0,10) < 4)
                 {
                     if(!Camino[0, j])
                     {
@@ -418,7 +482,7 @@ namespace ProjectoJuegoCarro
                 }
             }
         }
-
+        
         static void Colision()
         {
             if (Camino[Camino.GetLength(0) - 1, PosicionDelCarro])
