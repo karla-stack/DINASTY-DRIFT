@@ -153,6 +153,11 @@ class Menu
 ██║░░██║███████╗╚█████╔╝░░░██║░░░╚█████╔╝██║░░██║
 ╚═╝░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
         
+
+
+        Version 1.5.2
+
+
         ";
         ConsoleColor[] colors = new ConsoleColor[]
         {
@@ -230,7 +235,7 @@ class Menu
             Console.WriteLine();
             Console.WriteLine("Instrucciones:");
             Console.WriteLine("==============");
-            Console.WriteLine("Tu objetivo es manejar un carro que se mueve automáticamente de izquierda a derecha.");
+            Console.WriteLine("Tu objetivo es manejar un carro que se mueve manualmente de izquierda a derecha.");
             Console.WriteLine("Debes evitar chocar con los obstáculos que aparecen en tu camino.");
             Console.WriteLine("Para mover el carro, utiliza las teclas de dirección:");
             Console.WriteLine("   - Izquierda (←) para mover el carro hacia la izquierda.");
@@ -248,45 +253,49 @@ class Menu
 
 namespace ProjectoJuegoCarro
 {
-    public class JuegoDeCarro
+    public class JuegoDeCarro //contenedor lógico con las variables
     {
-        static int AnchoDeCarretera = 7;
-        static bool JuegoCorriendo = true;
-        static int Velocidad = 0;
-        static Random Aleatorio = new Random();
-        static bool[,] Camino = new bool[15, 7];
-        static int PosicionDelCarro = 5;
 
-        static int puntaje = 0;
+        //todas las variables, matriz, elementos importantes que componen el programa 
+        static int AnchoDeCarretera = 7; //Ancho de la carretera
+        static bool JuegoCorriendo = true; //Indica si el juego está corriendo
+        static int Velocidad = 0; //Afecta la frecuencia de actualizacion
+        static Random Aleatorio = new Random(); //Generador de numeros aleatorios para obstaculos
+        static bool[,] Camino = new bool[15, 7]; //Matriz que representa el camino
+        static int PosicionDelCarro = 5; //Posicion inicial del carro
 
-        static string nombre = "";
+        static int puntaje = 0; //Puntaje del jugador
+
+        static string nombre = ""; //Nombre del jugador 
 
         public static void InicioJuego()
         {
-            bool salir = false;
+            bool salir = false; 
 
             do
             {
-                Console.CursorVisible = false;
-                SeleccionarDificultad();
-                nombre = ObtenerNombreJugador();
+                Console.CursorVisible = false; //Ocultar cursor 
+                SeleccionarDificultad(); //Selecciona dificultad
+                nombre = ObtenerNombreJugador(); //Obtiene el nombre del jugador
 
                 if (Velocidad > 0) // Solo iniciar el juego si se seleccionó una dificultad válida
                 {
                     JuegoCorriendo = true;
-                    puntaje = 0;
-                    DateTime startTime = DateTime.Now;
+                    puntaje = 0; 
+                    DateTime startTime = DateTime.Now; //Marca el tiempo de inicio 
 
                     Thread inputThread = new Thread(Entrada);
                     inputThread.Start();
 
+
+                    //Bucle principal del juego
                     while (JuegoCorriendo)
                     {
-                        GeneradorDeObstaculos();
+                        GeneradorDeObstaculos(); 
                         PistaYObstaculos();
                         Colision();
 
-                        //Incrementa el score 
+                        //Incrementa el score basado en el tiempo transcurrido 
                         TimeSpan elapsedTime = DateTime.Now - startTime;
                         puntaje = (int)elapsedTime.TotalSeconds;
 
@@ -295,7 +304,7 @@ namespace ProjectoJuegoCarro
 
                     inputThread.Join();
 
-
+                    //Muestra la pantalla de fin de juego 
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine(@"
@@ -319,6 +328,8 @@ namespace ProjectoJuegoCarro
                     Console.ReadKey(true); // Espera a que el usuario presione una tecla
                     Console.ResetColor();
 
+
+                    //Muestra la opcion para volver a jugar o salir 
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine(@"
@@ -332,8 +343,8 @@ namespace ProjectoJuegoCarro
                     Console.WriteLine("2. No, salir");
                     Console.ResetColor();
 
-                    char replayChoice = Console.ReadKey(true).KeyChar;
-                    if (replayChoice != '1')
+                    char replayChoice = Console.ReadKey(true).KeyChar; //Captura la opción
+                    if (replayChoice != '1') // Si el usuario lige no volver a jugar sale del bucle
                     {
                         salir = true;
                     }
@@ -353,19 +364,20 @@ namespace ProjectoJuegoCarro
             return nombre ?? "Jugador"; //Si es empty or null return "Jugador"
         }
 
-        static void PistaYObstaculos()
+    
+        static void PistaYObstaculos()                              
         {
             Console.Clear();
-            for (int i = 0; i < Camino.GetLength(0); i++)
+            for (int i = 0; i < Camino.GetLength(0); i++) //Iterar a traves de cada fila de la matriz 'Camino'
             {
-                for (int j = 0; j < AnchoDeCarretera; j++)
+                for (int j = 0; j < AnchoDeCarretera; j++) //Iterar a traves de cada columna de la  matriz 'Camino'
                 {
-                    if (i == Camino.GetLength(0) - 1 && j == PosicionDelCarro)
-                        Console.Write('O'); // Carro
+                    if (i == Camino.GetLength(0) - 1 && j == PosicionDelCarro) //Si estamos en la ultima fila de la matriz 'Camino' Y en la posicion del carro, dibuja el carro
+                        Console.Write('▲'); // Carro
                     else if (Camino[i, j])
-                        Console.Write('=');
+                        Console.Write('▀'); //Obstaculo
                     else
-                        Console.Write('|');
+                        Console.Write('|'); //Carretera
                 }
                 Console.WriteLine();
             }
@@ -389,7 +401,7 @@ namespace ProjectoJuegoCarro
                 switch (choice)
                 {
                     case '1':
-                        Velocidad = 600; // Aumentar el tiempo de espera para facilitar el juego.
+                        Velocidad = 800; // Aumentar el tiempo de espera para facilitar el juego.
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine(@"
                       ______                
@@ -405,7 +417,7 @@ namespace ProjectoJuegoCarro
                         Console.ResetColor();
                         break;
                     case '2':
-                        Velocidad = 500; // Menos aumento para dificultad normal.
+                        Velocidad = 700; // Menos aumento para dificultad normal.
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine(@"
 
@@ -459,54 +471,54 @@ namespace ProjectoJuegoCarro
 
         static void GeneradorDeObstaculos()
         {
-            for (int i = Camino.GetLength(0) - 1; i > 0; i--)
+            for (int i = Camino.GetLength(0) - 1; i > 0; i--) //Mover los obstaculos existentes hacia abajo
             {
-                for (int j = 0; j < AnchoDeCarretera; j++)
+                for (int j = 0; j < AnchoDeCarretera; j++) //Va moviendo el estado del obstaculo de la fila superior a la actual
                 {
-                    Camino[i, j] = Camino[i - 1, j];
+                    Camino[i, j] = Camino[i - 1, j]; //Moviendo asi los obstaculos una fila hacia abajo
                 }
             }
 
             for (int j = 0; j < AnchoDeCarretera; j++)
             {
-                if(Aleatorio.Next(0,10) < 4)
+                if(Aleatorio.Next(0,10) < 4) //40% de probabilidad de generar un obstaculo
                 {
-                    if(!Camino[0, j])
+                    if(!Camino[0, j]) //Solo genera un obstaculo si no hay uno ya 
                     {
                         Camino[0, j] = true;
                     }
                 }
                 else
                 {
-                    Camino[0, j] = false;
+                    Camino[0, j] = false; //Deja espacio libre si no se genera un obstaculo
                 }
             }
         }
         
         static void Colision()
         {
-            if (Camino[Camino.GetLength(0) - 1, PosicionDelCarro])
+            if (Camino[Camino.GetLength(0) - 1, PosicionDelCarro]) //Si hay un obstaculo en la posicion del carro
             {
-                JuegoCorriendo = false;
+                JuegoCorriendo = false; //Termina el juego
             }
         }
 
         static void Entrada()
         {
-            while (JuegoCorriendo)
+            while (JuegoCorriendo) //Continuar mientras el juego esta corriendo 
             {
-                var key = Console.ReadKey(true).Key;
+                var key = Console.ReadKey(true).Key; //Para leer la tecla presionada 
 
                 switch (key)
                 {
                     case ConsoleKey.LeftArrow:
-                        if (PosicionDelCarro > 0) PosicionDelCarro--;
+                        if (PosicionDelCarro > 0) PosicionDelCarro--; //Mover el carro a la izquiera si no esta en el borde
                         break;
                     case ConsoleKey.RightArrow:
-                        if (PosicionDelCarro < AnchoDeCarretera - 1) PosicionDelCarro++;
+                        if (PosicionDelCarro < AnchoDeCarretera - 1) PosicionDelCarro++; //Mover el carro a la derecha si no esta en el borde
                         break;
                     case ConsoleKey.Escape:
-                        JuegoCorriendo = false;
+                        JuegoCorriendo = false; //Terminar el juego si se presiona ESC
                         break;
                 }
             }
