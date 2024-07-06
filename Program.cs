@@ -26,8 +26,9 @@ namespace ProjectoJuegoCarro
                 // Le cambiamos los colores a la consola.
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.DarkBlue;
-                Console.CursorVisible = false; //Ocultar cursor 
+                Console.CursorVisible = false;
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
+
 
             string imagenDelMenu = @"
                           ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡤⢤⣶⣶⣶⣶⣶⣒⣒⣀⣺⣿⣿⠿⢶⣶⣶⣶⣦⣤⣤⣤⣄⣀⣀⣀⣀⡀⠀⠀
@@ -154,12 +155,6 @@ namespace ProjectoJuegoCarro
 ██╔══██║██╔══╝░░██║░░██╗░░░██║░░░██║░░██║██╔══██╗
 ██║░░██║███████╗╚█████╔╝░░░██║░░░╚█████╔╝██║░░██║
 ╚═╝░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
-        
-
-
-        
-
-
             ";
             ConsoleColor[] colors = new ConsoleColor[]
             {
@@ -184,7 +179,6 @@ namespace ProjectoJuegoCarro
             Console.WriteLine(" Version 1.5.3");
             Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
             Console.ReadKey(true);
-
         }
 
         static void MostrarOpcionesMenu(string[] opciones, int opcionSeleccionada)
